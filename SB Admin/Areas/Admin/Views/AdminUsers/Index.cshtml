@@ -1,0 +1,60 @@
+﻿@model List<AdminUser>
+
+@{
+    ViewData["Title"] = "Admin Kullanıcılar";
+}
+
+<h3 class="mt-4">Admin Kullanıcılar</h3>
+
+<a class="btn btn-primary mb-3"
+   asp-area="Admin"
+   asp-controller="AdminUsers"
+   asp-action="Create">
+    Yeni Admin
+</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kullanıcı</th>
+            <th>Ad</th>
+            <th>Email</th>
+            <th width="180">İşlem</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.Id</td>
+                <td>@u.UserName</td>
+                <td>@u.FirstName @u.LastName</td>
+                <td>@u.Email</td>
+
+                <td>
+
+                    <a class="btn btn-warning btn-sm"
+                       asp-area="Admin"
+                       asp-controller="AdminUsers"
+                       asp-action="Edit"
+                       asp-route-id="@u.Id">
+                        Düzenle
+                    </a>
+
+                    <form asp-area="Admin"
+                          asp-controller="AdminUsers"
+                          asp-action="Delete"
+                          asp-route-id="@u.Id"
+                          method="post"
+                          style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Bu kaydı silmek istediğinize emin misiniz?');">Sil</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

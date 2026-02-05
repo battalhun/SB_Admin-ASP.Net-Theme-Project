@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SB_Admin.Models;
 using System.Diagnostics;
 
-namespace SB_Admin.Controllers
+namespace SB_Admin.Areas.Admin.Controllers
 {
-    public class AdminController : Controller
+    [Area("Admin")]
+    [Authorize]
+    public class DashboardController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public DashboardController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var employees = _context.Employees.ToList();
+            return View(employees);
         }
 
         public IActionResult layout_sidenav_light()
@@ -24,11 +34,6 @@ namespace SB_Admin.Controllers
         }
 
         public IActionResult Charts()
-        {
-            return View();
-        }
-
-        public IActionResult Login()
         {
             return View();
         }
@@ -52,6 +57,7 @@ namespace SB_Admin.Controllers
         {
             return View();
         }
+
         public IActionResult Error404()
         {
             return View();
@@ -61,10 +67,14 @@ namespace SB_Admin.Controllers
         {
             return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

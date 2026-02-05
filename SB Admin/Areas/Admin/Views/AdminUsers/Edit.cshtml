@@ -1,0 +1,22 @@
+﻿@model AdminUser
+@{
+    ViewData["Title"] = "Edit";
+}
+<form asp-area="Admin" asp-controller="AdminUsers" asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <input asp-for="UserName" class="form-control mb-2" />
+
+    <input asp-for="FirstName" class="form-control mb-2" />
+
+    <input asp-for="LastName" class="form-control mb-2" />
+
+    <input asp-for="Email" class="form-control mb-2" />
+
+    <input asp-for="Phone" class="form-control mb-2" />
+
+    <button class="btn btn-warning" type="submit">Güncelle</button>
+
+</form>

@@ -1,0 +1,7 @@
+﻿
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+
+Scaffold-DbContext "Data Source=.;Database=AdminPanelDB;Trusted_Connection=True;Encrypt=False" Microsoft.EntityFrameworkCore.SqlServer -outputdir Models -force
